@@ -26,8 +26,12 @@ fi
 
 sudo apt-get install git -y
 
+cd /opt/
+
+git clone https://github.com/786ravikumar08/Devops_task.git
+
 #######################################
 # Install and configure Elasticsearch #
 #######################################
 
-ANSIBLE_FORCE_COLOR=1 PYTHONUNBUFFERED=1 ansible-playbook /tmp/ansible/main.yml
+ANSIBLE_FORCE_COLOR=1 PYTHONUNBUFFERED=1 ansible-playbook /opt/Devops_task/ansible/es-configure.yml

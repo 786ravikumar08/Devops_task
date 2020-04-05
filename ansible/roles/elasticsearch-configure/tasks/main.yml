@@ -1,6 +1,21 @@
 ---
-- include_tasks: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
+- name: Add required dependencies.
+  apt:
+    name:
+      - apt-transport-https
+      - gnupg2
+    state: present
+
+- name: Add Elasticsearch apt key.
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add Elasticsearch repository.
+  apt_repository:
+    repo: 'deb https://artifacts.elastic.co/packages/{{ elasticsearch_version }}/apt stable main'
+    state: present
+    update_cache: true
 
 - name: Install Elasticsearch.
   package:
