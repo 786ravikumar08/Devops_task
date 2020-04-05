@@ -1,0 +1,12 @@
+.DS_Store
+*.tfstate
+*.tfstate.backup
+.terraform
+.terraform/*
+*.iml
+.idea/*
+infra-deploy/.terraform
+infra-deploy/.terraform/*
+infra-deploy/terraform.tfstate
+infra-deploy/terraform.tfstate.backup
+.git

@@ -1,0 +1,7 @@
+- name: apply common configuration to all ES nodes
+  hosts: localhost
+  become: yes
+  vars:
+    SERVICE: es
+  tasks:
+    - include_role: name=elasticsearch-configure
