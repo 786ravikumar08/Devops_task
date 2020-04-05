@@ -3,5 +3,6 @@
   become: yes
   vars:
     SERVICE: es
-  tasks:
-    - include_role: name=elasticsearch-configure
+  roles:
+    - oracle-java8
+    - elasticsearch-configure

@@ -1,0 +1,47 @@
+#
+# Install Java8
+#
+
+- name: Create Directory for download java {{ download_folder }}
+  file:
+    path: "{{ download_folder }}"
+    recurse: yes
+    state: directory
+
+- name: Create Directory  {{ java_name }}
+  file:
+    path: "{{ java_name }}"
+    recurse: yes
+    state: directory
+
+- name: Download Java
+  command: "wget -q -O {{java_archive}} -c --header 'Cookie: oraclelicense=accept-securebackup-cookie' {{ jdk_tarball_url }}"
+
+- name: Unpack archive
+  unarchive:
+    src="{{java_archive}}"
+    dest="{{download_folder}}"
+    creates="{{java_name}}/bin/java"
+    force=no
+    remote_src="{{java_remote_src}}"
+
+- name: Fix ownership
+  file: state=directory path={{java_name}} owner=root group=root recurse=yes
+
+- name: Create symlink to /usr/lib/jvm/java-8
+  file: src={{java_name}} dest=/usr/lib/jvm/java-8 state=link
+
+- name: Make Java available for system by updating alternatives
+  command: update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8/jre/bin/java 1081
+
+- name: Make Java available for system by updating alternatives
+  command: update-alternatives --set java /usr/lib/jvm/java-8/jre/bin/java
+
+- name: Make Javac available for system by updating alternatives
+  command: update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/java-8/bin/javac 100
+
+- name: Set JAVA HOME
+  lineinfile: dest=/etc/environment
+                state=present
+                regexp='^JAVA_HOME'
+                line="JAVA_HOME="{{java_name}}""

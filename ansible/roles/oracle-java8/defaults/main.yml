@@ -1,0 +1,13 @@
+jdk_local_dir: jdk1.8.0_131
+jdk_archive: jdk-8u131-linux-x64.tar.gz
+download_folder: /usr/lib/jvm
+java_name: "{{ download_folder }}/{{ jdk_local_dir }}"
+java_archive: "{{ download_folder }}/{{ jdk_archive }}"
+java_remote_src: no
+
+java_version: 8
+java_subversion: 131
+java_build_custom: 11
+jdk_version_detail_custom: "{{ java_version }}u{{ java_subversion }}-b{{ java_build_custom }}"
+jdk_tarball_hash: d54c1d3a095b4ff2b6607d096fa80163
+jdk_tarball_url: "http://download.oracle.com/otn-pub/java/jdk/{{ jdk_version_detail_custom }}/{{ jdk_tarball_hash }}/{{ jdk_archive }}"
